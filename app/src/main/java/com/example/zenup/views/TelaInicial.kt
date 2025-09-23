@@ -42,66 +42,54 @@ import com.example.zenup.ui.theme.branco
 @Composable
 fun TelaInicial(){
     Box (
-        modifier = Modifier
-            .fillMaxSize()
-            .background(color = branco),
+        modifier = Modifier.fillMaxSize()
     ) {
-    Column (
-        modifier = Modifier
-            .fillMaxSize()
-            .background(
-            color = branco
-        ).verticalScroll(rememberScrollState())
-    ){
-
+        // LINHA NOVA: Adicione a imagem de fundo aqui
         Image(
-            painter = painterResource(id = R.drawable.estrela),
-            contentDescription = null,
-            modifier = Modifier.width(width = 750.dp).height(550.dp),
-            contentScale = ContentScale.Crop,
-            alignment = Alignment.Center
+            painter = painterResource(id = R.drawable.telainicialbackground),
+            contentDescription = "Background da tela inicial", // Acessibilidade
+            modifier = Modifier.fillMaxSize(),
+            contentScale = ContentScale.FillBounds // Faz a imagem se ajustar ao tamanho da tela
         )
 
-        Text(
-            text = buildAnnotatedString {
-                append("A cada dia,")
-                withStyle(
-                    style = SpanStyle(
-                        color = azulclaro
-                    )
-                ){
-                    append("\num novo estado")
-                }
-                append("\nde espírito")
-            },
-            color = azul,
-            fontSize = 40.sp,
-            fontWeight = FontWeight.Bold,
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(all = 20.dp),
-       )
-        Button(
-            onClick = { /* ação do botão */ },
-            modifier = Modifier
-                .fillMaxWidth(0.9f)   // ocupa 90% da largura
-                .height(50.dp),       // altura fixa
-            colors = ButtonDefaults.buttonColors(
-                containerColor = Color(0xFFFF7043), // cor de fundo (laranja, como no exemplo)
-                contentColor = Color.White          // cor do texto
-            ),
-            shape = RoundedCornerShape(12.dp) // bordas arredondadas
-        ) {
-            Text(
-                text = "Vamos começar?",
-                fontSize = 18.sp,
-                fontWeight = FontWeight.Bold
-            )
+        // Sua coluna com os outros componentes
+        Column (
+            modifier = Modifier.fillMaxSize()
+                .padding(16.dp), // Adicione um padding para não colar na tela
+            horizontalAlignment = Alignment.CenterHorizontally // Centraliza o conteúdo horizontalmente
+        ){
+            // Outros componentes (texto, botões, etc.) vão aqui
+            // A sua Column estava sem alinhamento e o padding estava em outro lugar, movi para aqui.
+            // O background branco da Column precisa ser removido para a imagem de fundo aparecer
+            // Senão, o background branco da Column vai cobrir a imagem.
+
+            // ...
         }
+    }
+
+
+
+//        Button(
+//            onClick = { /* ação do botão */ },
+//            modifier = Modifier
+//                .fillMaxWidth(0.9f)   // ocupa 90% da largura
+//                .height(50.dp),       // altura fixa
+//            colors = ButtonDefaults.buttonColors(
+//                containerColor = Color(0xFFFF7043), // cor de fundo (laranja, como no exemplo)
+//                contentColor = Color.White          // cor do texto
+//            ),
+//            shape = RoundedCornerShape(12.dp) // bordas arredondadas
+//        ) {
+//            Text(
+//                text = "Vamos começar?",
+//                fontSize = 18.sp,
+//                fontWeight = FontWeight.Bold
+//            )
+//        }
 
     }
-     }
-   }
+
+
 
 @Preview
 @Composable

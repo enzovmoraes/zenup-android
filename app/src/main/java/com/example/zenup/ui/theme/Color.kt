@@ -15,3 +15,5 @@ val azulclaro = Color(0XFF94CCE4)
 val laranja = Color(0XFFFF7F3E)
 val azulescuro = Color(0XFF283C52)
 val branco = Color(0XFFFFFFFF)
+
+val textodestaque = Color(0xFF142544)

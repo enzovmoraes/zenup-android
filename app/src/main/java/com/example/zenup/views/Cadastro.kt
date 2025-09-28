@@ -1,79 +1,172 @@
 package com.example.zenup.views
 
+import com.example.zenup.R
+
+
+
+import android.widget.Toast
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.painter.Painter
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.fontResource
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.SpanStyle
-import androidx.compose.ui.text.buildAnnotatedString
-import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.withStyle
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.zenup.R
-import com.example.zenup.ui.theme.azul
-import com.example.zenup.ui.theme.azulclaro
-import com.example.zenup.ui.theme.branco
+import androidx.compose.ui.tooling.preview.Preview
 
-
-
+// 🔹 Preview da tela com MaterialTheme
+@Preview(showBackground = true, showSystemUi = true)
 @Composable
-fun Cadastro(){
-    Box (
-        modifier = Modifier.fillMaxSize()
-    ) {
-        // LINHA NOVA: Adicione a imagem de fundo aqui
-        Image(
-            painter = painterResource(id = R.drawable.cadastrobackground),
-            contentDescription = "Background da tela inicial", // Acessibilidade
-            modifier = Modifier.fillMaxSize(),
-            contentScale = ContentScale.FillBounds // Faz a imagem se ajustar ao tamanho da tela
-        )
-
-        // Sua coluna com os outros componentes
-        Column (
-            modifier = Modifier.fillMaxSize()
-                .padding(16.dp), // Adicione um padding para não colar na tela
-            horizontalAlignment = Alignment.CenterHorizontally // Centraliza o conteúdo horizontalmente
-        ){
-            // Outros componentes (texto, botões, etc.) vão aqui
-            // A sua Column estava sem alinhamento e o padding estava em outro lugar, movi para aqui.
-            // O background branco da Column precisa ser removido para a imagem de fundo aparecer
-            // Senão, o background branco da Column vai cobrir a imagem.
-
-            // ...
+private fun TelaPreview() {
+    MaterialTheme {
+        Surface {
+            RegisterScreen()
         }
     }
-
-
 }
 
 
-
-@Preview
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun TelaPreview(){
-    Cadastro()
+fun RegisterScreen() {
+    val context = LocalContext.current
+
+    var nome by remember { mutableStateOf("") }
+    var email by remember { mutableStateOf("") }
+    var senha by remember { mutableStateOf("") }
+    var confirmarSenha by remember { mutableStateOf("") }
+    var aceitarTermos by remember { mutableStateOf(false) }
+
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(24.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Top
+    ) {
+
+        // Logo (troque pelo seu logo em drawable)
+        Image(
+            painter = painterResource(id = R.drawable.logo),
+            contentDescription = "Logo",
+            modifier = Modifier
+                .size(120.dp)
+                .padding(top = 32.dp, bottom = 16.dp)
+        )
+
+        // Título
+        Text(
+            text = "Crie sua conta",
+            fontSize = 22.sp,
+            fontWeight = FontWeight.Bold,
+            color = Color(0xFFFF5722),
+            modifier = Modifier.padding(bottom = 24.dp)
+        )
+
+        // Nome
+        OutlinedTextField(
+            value = nome,
+            onValueChange = { nome = it },
+            label = { Text("Nome completo") },
+            modifier = Modifier.fillMaxWidth()
+        )
+
+        Spacer(modifier = Modifier.height(12.dp))
+
+        // Email
+        OutlinedTextField(
+            value = email,
+            onValueChange = { email = it },
+            label = { Text("Email") },
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
+            modifier = Modifier.fillMaxWidth()
+        )
+
+        Spacer(modifier = Modifier.height(12.dp))
+
+        // Senha
+        OutlinedTextField(
+            value = senha,
+            onValueChange = { senha = it },
+            label = { Text("Senha") },
+            visualTransformation = PasswordVisualTransformation(),
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+            modifier = Modifier.fillMaxWidth()
+        )
+
+        Spacer(modifier = Modifier.height(12.dp))
+
+        // Confirmar senha
+        OutlinedTextField(
+            value = confirmarSenha,
+            onValueChange = { confirmarSenha = it },
+            label = { Text("Confirme sua senha") },
+            visualTransformation = PasswordVisualTransformation(),
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+            modifier = Modifier.fillMaxWidth()
+        )
+
+        Spacer(modifier = Modifier.height(12.dp))
+
+        // Checkbox
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            Checkbox(
+                checked = aceitarTermos,
+                onCheckedChange = { aceitarTermos = it }
+            )
+            Text(text = "Aceito todos os termos")
+        }
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        // Botão cadastrar
+        Button(
+            onClick = {
+                when {
+                    nome.isBlank() || email.isBlank() || senha.isBlank() || confirmarSenha.isBlank() ->
+                        Toast.makeText(context, "Preencha todos os campos", Toast.LENGTH_SHORT).show()
+
+                    senha != confirmarSenha ->
+                        Toast.makeText(context, "As senhas não coincidem", Toast.LENGTH_SHORT).show()
+
+                    !aceitarTermos ->
+                        Toast.makeText(context, "Você precisa aceitar os termos", Toast.LENGTH_SHORT).show()
+
+                    else ->
+                        Toast.makeText(context, "Cadastro realizado com sucesso!", Toast.LENGTH_LONG).show()
+                }
+            },
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(50.dp),
+            colors = ButtonDefaults.buttonColors(
+                containerColor = Color(0xFFFF9800),
+                contentColor = Color.White
+            )
+        ) {
+            Text(text = "Cadastrar")
+        }
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        // Link para login
+        Text(
+            text = "Já tem sua conta? Entre agora!",
+            color = Color.Blue,
+            textAlign = TextAlign.Center,
+            modifier = Modifier.clickable {
+                Toast.makeText(context, "Ir para tela de login", Toast.LENGTH_SHORT).show()
+            }
+        )
+    }
 }

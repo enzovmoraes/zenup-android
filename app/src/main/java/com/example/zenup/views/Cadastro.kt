@@ -30,7 +30,7 @@ import androidx.compose.ui.tooling.preview.Preview
 private fun TelaPreview() {
     MaterialTheme {
         Surface {
-            RegisterScreen()
+            Cadastro()
         }
     }
 }
@@ -38,7 +38,7 @@ private fun TelaPreview() {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun RegisterScreen() {
+fun Cadastro() {
     val context = LocalContext.current
 
     var nome by remember { mutableStateOf("") }

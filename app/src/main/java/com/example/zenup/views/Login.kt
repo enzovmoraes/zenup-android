@@ -95,31 +95,46 @@ fun Login() {
             modifier = Modifier.padding(bottom = 24.dp)
         )
 
+        // Nova coluna para alinhar os campos de entrada e seus rótulos à esquerda
+        Column(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalAlignment = Alignment.Start
+        ) {
+            Spacer(modifier = Modifier.height(60.dp))
 
-        Spacer(modifier = Modifier.height(60.dp))
+            // Email
+            Text(
+                text = "Email",
+                modifier = Modifier.padding(bottom = 4.dp),
+                fontSize = 16.sp,
+                color = Color.Black
+            )
+            OutlinedTextField(
+                value = email,
+                onValueChange = { email = it },
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
+                modifier = Modifier.fillMaxWidth()
+            )
 
-        // Email
-        OutlinedTextField(
-            value = email,
-            onValueChange = { email = it },
-            label = { Text("Email") },
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
-            modifier = Modifier.fillMaxWidth()
-        )
+            Spacer(modifier = Modifier.height(12.dp))
 
-        Spacer(modifier = Modifier.height(12.dp))
+            // Senha
+            Text(
+                text = "Senha",
+                modifier = Modifier.padding(bottom = 4.dp),
+                fontSize = 16.sp,
+                color = Color.Black
+            )
+            OutlinedTextField(
+                value = senha,
+                onValueChange = { senha = it },
+                visualTransformation = PasswordVisualTransformation(),
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+                modifier = Modifier.fillMaxWidth()
+            )
 
-        // Senha
-        OutlinedTextField(
-            value = senha,
-            onValueChange = { senha = it },
-            label = { Text("Senha") },
-            visualTransformation = PasswordVisualTransformation(),
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
-            modifier = Modifier.fillMaxWidth()
-        )
-
-        Spacer(modifier = Modifier.height(12.dp))
+            Spacer(modifier = Modifier.height(12.dp))
+        } // Fim da nova Column
 
 
         Spacer(modifier = Modifier.height(12.dp))

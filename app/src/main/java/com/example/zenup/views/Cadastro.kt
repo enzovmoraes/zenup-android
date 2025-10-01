@@ -2,10 +2,9 @@ package com.example.zenup.views
 
 import com.example.zenup.R
 
-
-
 import android.widget.Toast
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardOptions
@@ -25,7 +24,7 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.tooling.preview.Preview
 
 // 🔹 Preview da tela com MaterialTheme
-@Preview(showBackground = true, showSystemUi = true)
+@Preview(showBackground = true, showSystemUi = false)
 @Composable
 private fun TelaPreview() {
     MaterialTheme {
@@ -50,12 +49,13 @@ fun Cadastro() {
     Column(
         modifier = Modifier
             .fillMaxSize()
+            .background(Color.White) // Adicione esta linha para o background branco
             .padding(24.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Top
     ) {
 
-        // Logo (troque pelo seu logo em drawable)
+        // Logo e Título centralizados
         Image(
             painter = painterResource(id = R.drawable.logo),
             contentDescription = "Logo",
@@ -64,7 +64,6 @@ fun Cadastro() {
                 .padding(top = 32.dp, bottom = 16.dp)
         )
 
-        // Título
         Text(
             text = "Crie sua conta",
             fontSize = 22.sp,
@@ -73,53 +72,90 @@ fun Cadastro() {
             modifier = Modifier.padding(bottom = 24.dp)
         )
 
-        // Nome
-        OutlinedTextField(
-            value = nome,
-            onValueChange = { nome = it },
-            label = { Text("Nome completo") },
+        // Nova coluna para alinhar os campos de entrada e seus rótulos à esquerda
+        Column(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalAlignment = Alignment.Start
+        ) {
+            // Nome
+            Text(
+                text = "Nome completo",
+                modifier = Modifier.padding(bottom = 4.dp),
+                fontSize = 16.sp,
+                color = Color.Black
+            )
+            OutlinedTextField(
+                value = nome,
+                onValueChange = { nome = it },
+                // Remove o label para que o texto não flutue dentro do campo
+                // label = { Text("Nome completo") },
+                modifier = Modifier.fillMaxWidth()
+            )
+
+            Spacer(modifier = Modifier.height(12.dp))
+
+            // Email
+            Text(
+                text = "Email",
+                modifier = Modifier.padding(bottom = 4.dp),
+                fontSize = 16.sp,
+                color = Color.Black
+            )
+            OutlinedTextField(
+                value = email,
+                onValueChange = { email = it },
+                // Remove o label
+                // label = { Text("Email") },
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
+                modifier = Modifier.fillMaxWidth()
+            )
+
+            Spacer(modifier = Modifier.height(12.dp))
+
+            // Senha
+            Text(
+                text = "Senha",
+                modifier = Modifier.padding(bottom = 4.dp),
+                fontSize = 16.sp,
+                color = Color.Black
+            )
+            OutlinedTextField(
+                value = senha,
+                onValueChange = { senha = it },
+                // Remove o label
+                // label = { Text("Senha") },
+                visualTransformation = PasswordVisualTransformation(),
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+                modifier = Modifier.fillMaxWidth()
+            )
+
+            Spacer(modifier = Modifier.height(12.dp))
+
+            // Confirmar senha
+            Text(
+                text = "Confirme sua senha",
+                modifier = Modifier.padding(bottom = 4.dp),
+                fontSize = 16.sp,
+                color = Color.Black
+            )
+            OutlinedTextField(
+                value = confirmarSenha,
+                onValueChange = { confirmarSenha = it },
+                // Remove o label
+                // label = { Text("Confirme sua senha") },
+                visualTransformation = PasswordVisualTransformation(),
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+                modifier = Modifier.fillMaxWidth()
+            )
+
+            Spacer(modifier = Modifier.height(12.dp))
+        } // Fim da nova Column
+
+        // Checkbox e Botão centralizados
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier.fillMaxWidth()
-        )
-
-        Spacer(modifier = Modifier.height(12.dp))
-
-        // Email
-        OutlinedTextField(
-            value = email,
-            onValueChange = { email = it },
-            label = { Text("Email") },
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
-            modifier = Modifier.fillMaxWidth()
-        )
-
-        Spacer(modifier = Modifier.height(12.dp))
-
-        // Senha
-        OutlinedTextField(
-            value = senha,
-            onValueChange = { senha = it },
-            label = { Text("Senha") },
-            visualTransformation = PasswordVisualTransformation(),
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
-            modifier = Modifier.fillMaxWidth()
-        )
-
-        Spacer(modifier = Modifier.height(12.dp))
-
-        // Confirmar senha
-        OutlinedTextField(
-            value = confirmarSenha,
-            onValueChange = { confirmarSenha = it },
-            label = { Text("Confirme sua senha") },
-            visualTransformation = PasswordVisualTransformation(),
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
-            modifier = Modifier.fillMaxWidth()
-        )
-
-        Spacer(modifier = Modifier.height(12.dp))
-
-        // Checkbox
-        Row(verticalAlignment = Alignment.CenterVertically) {
+        ) {
             Checkbox(
                 checked = aceitarTermos,
                 onCheckedChange = { aceitarTermos = it }
@@ -129,7 +165,6 @@ fun Cadastro() {
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        // Botão cadastrar
         Button(
             onClick = {
                 when {
@@ -159,7 +194,6 @@ fun Cadastro() {
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        // Link para login
         Text(
             text = "Já tem sua conta? Entre agora!",
             color = Color.Blue,

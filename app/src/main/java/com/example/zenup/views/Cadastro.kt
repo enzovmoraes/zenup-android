@@ -23,21 +23,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.tooling.preview.Preview
 
-// 🔹 Preview da tela com MaterialTheme
-@Preview(showBackground = true, showSystemUi = false)
-@Composable
-private fun TelaPreview() {
-    MaterialTheme {
-        Surface {
-            Cadastro()
-        }
-    }
-}
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun Cadastro() {
+fun Cadastro(onLoginClick: () -> Unit) {
+
     val context = LocalContext.current
 
     var nome by remember { mutableStateOf("") }
@@ -203,4 +194,12 @@ fun Cadastro() {
             }
         )
     }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun TelaCadastro() {
+    Cadastro (
+        onLoginClick = {}
+    )
 }

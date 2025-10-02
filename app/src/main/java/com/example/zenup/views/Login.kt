@@ -59,7 +59,8 @@ import com.example.zenup.ui.theme.textodestaque
 
 
 @Composable
-fun Login() {
+fun Login(onCadastroClick: () -> Unit) {
+
     val context = LocalContext.current
 
     var nome by remember { mutableStateOf("") }
@@ -77,7 +78,7 @@ fun Login() {
         verticalArrangement = Arrangement.Top
     ) {
 
-        // Logo (troque pelo seu logo em drawable)
+        // Logo
         Image(
             painter = painterResource(id = R.drawable.logo),
             contentDescription = "Logo",
@@ -180,9 +181,9 @@ fun Login() {
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        // Link para login
+        // Link para cadastro
         Text(
-            text = "Já tem sua conta? Entre agora!",
+            text = "Não tem conta? Cadastre-se agora!",
             color = Color.Blue,
             textAlign = TextAlign.Center,
             modifier = Modifier.clickable {
@@ -193,8 +194,10 @@ fun Login() {
 }
 
 
-@Preview
+@Preview(showBackground = true)
 @Composable
-private fun TelaPreview(){
-    Login()
+fun TelaLoginPreview() {
+    Login(
+        onCadastroClick = {}
+    )
 }

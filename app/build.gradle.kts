@@ -30,6 +30,7 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
+        isCoreLibraryDesugaringEnabled = true
     }
     kotlinOptions {
         jvmTarget = "11"
@@ -45,6 +46,15 @@ dependencies {
         val nav_version = "2.9.4"
 
         implementation("androidx.navigation:navigation-compose:$nav_version")
+        implementation("androidx.compose.material:material-icons-extended:1.6.8")
+        implementation("androidx.compose.ui:ui:1.6.8")
+        implementation("androidx.compose.ui:ui-tooling-preview:1.6.8")
+        implementation("androidx.compose.material3:material3:1.2.1")
+        implementation("androidx.compose.material:material-icons-extended:1.6.8") // Para os ícones
+        implementation("androidx.compose.material3:material3:1.2.1")
+        debugImplementation("androidx.compose.ui:ui-tooling:1.6.8")
+        debugImplementation("androidx.compose.ui:ui-test-manifest:1.6.8")
+        coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.4")
     }
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
@@ -55,6 +65,7 @@ dependencies {
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.compose.material3)
     implementation(libs.androidx.compose.foundation.layout)
+    implementation(libs.androidx.compose.foundation)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

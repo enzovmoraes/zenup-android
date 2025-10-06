@@ -11,7 +11,7 @@ import androidx.compose.material.icons.filled.ChevronLeft
 import androidx.compose.material.icons.filled.ChevronRight
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Chat
-import androidx.compose.material.icons.filled.Notifications // Importação necessária para o sino
+import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -60,7 +60,6 @@ fun RegistroDiarioScreen() {
                 .fillMaxSize()
                 .padding(16.dp),
         ) {
-            // **INÍCIO DA ESTRUTURA CORRIGIDA: ROW para Título e Notificação**
             Row(
                 modifier = Modifier
                     .fillMaxWidth() // Permite que o Spacer empurre o botão para a direita
@@ -75,23 +74,23 @@ fun RegistroDiarioScreen() {
                     color = Color.Black,
                 )
 
-                Spacer(modifier = Modifier.weight(1f)) // Empurra o botão de notificação para a direita
+                Spacer(modifier = Modifier.weight(1f))
 
                 // Botão de Notificação (Sino)
                 IconButton(
                     onClick = { /* Ação do botão de notificação */ },
                     modifier = Modifier
                         .size(48.dp)
-                        .background(Color(0x33A69CFF), shape = CircleShape) // Fundo roxo suave e transparente
+                        .background(Color(0x33A69CFF), shape = CircleShape)
                 ) {
                     Icon(
                         imageVector = Icons.Default.Notifications,
                         contentDescription = "Notificações",
-                        tint = Color(0xFF5A4CDE) // Cor roxa para o ícone
+                        tint = Color(0xFF5A4CDE)
                     )
                 }
             }
-            // **FIM DA ESTRUTURA CORRIGIDA**
+
 
             Text(
                 text = "Você já fez\nseu registro hoje?",
@@ -100,7 +99,7 @@ fun RegistroDiarioScreen() {
                 color = roxo,
                 modifier = Modifier
                     .padding(top = 8.dp)
-                    .align(Alignment.Start) // Mantém o texto principal alinhado à esquerda
+                    .align(Alignment.Start)
             )
 
             Spacer(modifier = Modifier.height(32.dp))
@@ -172,7 +171,7 @@ fun BottomNavigationBar() {
             selected = true,
             onClick = { /* Navegação para a tela Home */ }
         )
-        // Item para preencher espaço vazio para o FAB
+
         Spacer(modifier = Modifier.weight(1f))
         NavigationBarItem(
             icon = { Icon(Icons.Default.Chat, contentDescription = "Chat") },
@@ -260,8 +259,7 @@ fun DayButton(day: Int, isToday: Boolean) {
                 contentColor = Color.Black
             )
         ) {
-            // Este Icone "Add" é apenas um placeholder no seu DayButton original,
-            // mas o texto do dia aparece por cima dele.
+
             Icon(
                 imageVector = Icons.Default.Add,
                 contentDescription = "Adicionar check-in",

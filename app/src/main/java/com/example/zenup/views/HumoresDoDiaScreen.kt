@@ -31,7 +31,7 @@ fun HumoresDoDiaScreen() {
             contentScale = ContentScale.FillBounds
         )
 
-        // Conteúdo da tela (o que estava no seu Column original)
+
         Column(
             modifier = Modifier
                 .fillMaxSize()

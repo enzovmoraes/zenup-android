@@ -40,7 +40,7 @@ fun Cadastro(onLoginClick: () -> Unit) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.White) // Adicione esta linha para o background branco
+            .background(Color.White)
             .padding(24.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Top
@@ -63,7 +63,7 @@ fun Cadastro(onLoginClick: () -> Unit) {
             modifier = Modifier.padding(bottom = 24.dp)
         )
 
-        // Nova coluna para alinhar os campos de entrada e seus rótulos à esquerda
+
         Column(
             modifier = Modifier.fillMaxWidth(),
             horizontalAlignment = Alignment.Start
@@ -78,8 +78,7 @@ fun Cadastro(onLoginClick: () -> Unit) {
             OutlinedTextField(
                 value = nome,
                 onValueChange = { nome = it },
-                // Remove o label para que o texto não flutue dentro do campo
-                // label = { Text("Nome completo") },
+
                 modifier = Modifier.fillMaxWidth()
             )
 
@@ -95,8 +94,6 @@ fun Cadastro(onLoginClick: () -> Unit) {
             OutlinedTextField(
                 value = email,
                 onValueChange = { email = it },
-                // Remove o label
-                // label = { Text("Email") },
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
                 modifier = Modifier.fillMaxWidth()
             )
@@ -113,8 +110,6 @@ fun Cadastro(onLoginClick: () -> Unit) {
             OutlinedTextField(
                 value = senha,
                 onValueChange = { senha = it },
-                // Remove o label
-                // label = { Text("Senha") },
                 visualTransformation = PasswordVisualTransformation(),
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
                 modifier = Modifier.fillMaxWidth()
@@ -132,15 +127,13 @@ fun Cadastro(onLoginClick: () -> Unit) {
             OutlinedTextField(
                 value = confirmarSenha,
                 onValueChange = { confirmarSenha = it },
-                // Remove o label
-                // label = { Text("Confirme sua senha") },
                 visualTransformation = PasswordVisualTransformation(),
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
                 modifier = Modifier.fillMaxWidth()
             )
 
             Spacer(modifier = Modifier.height(12.dp))
-        } // Fim da nova Column
+        }
 
         // Checkbox e Botão centralizados
         Row(

@@ -22,12 +22,15 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.tooling.preview.Preview
-
+import com.example.zenup.Usuario
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun Cadastro(onLoginClick: () -> Unit) {
+fun Cadastro(
+    onLoginClick: () -> Unit,
+    onCadastroSuccess: (String, String) -> Unit
+){
 
     val context = LocalContext.current
 
@@ -151,18 +154,11 @@ fun Cadastro(onLoginClick: () -> Unit) {
 
         Button(
             onClick = {
-                when {
-                    nome.isBlank() || email.isBlank() || senha.isBlank() || confirmarSenha.isBlank() ->
-                        Toast.makeText(context, "Preencha todos os campos", Toast.LENGTH_SHORT).show()
-
-                    senha != confirmarSenha ->
-                        Toast.makeText(context, "As senhas não coincidem", Toast.LENGTH_SHORT).show()
-
-                    !aceitarTermos ->
-                        Toast.makeText(context, "Você precisa aceitar os termos", Toast.LENGTH_SHORT).show()
-
-                    else ->
-                        Toast.makeText(context, "Cadastro realizado com sucesso!", Toast.LENGTH_LONG).show()
+                if (nome.isNotBlank() && email.isNotBlank() && senha.isNotBlank()) {
+                    onCadastroSuccess( email, senha)
+                    Toast.makeText(context, "Cadastro realizado!", Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(context, "Preencha todos os campos!", Toast.LENGTH_SHORT).show()
                 }
             },
             modifier = Modifier
@@ -193,6 +189,7 @@ fun Cadastro(onLoginClick: () -> Unit) {
 @Composable
 fun TelaCadastro() {
     Cadastro (
-        onLoginClick = {}
+        onLoginClick = {},
+        onCadastroSuccess ={_,_ ->}
     )
 }

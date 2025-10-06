@@ -31,7 +31,7 @@ import com.example.zenup.ui.theme.roxo
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun RegistroDiarioScreen() {
+fun RegistroDiarioScreen(){
 
     var currentMonth by remember { mutableStateOf(LocalDate.now()) }
 

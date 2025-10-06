@@ -18,10 +18,14 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.example.zenup.R
 
 @Composable
-fun TelaInicial(onLoginClick: () -> Unit, onCadastroClick: () -> Unit) {
+fun TelaInicial(
+    onLoginClick: () -> Unit,
+    onCadastroClick: () -> Unit
+){
     Box(
         modifier = Modifier
             .fillMaxSize()

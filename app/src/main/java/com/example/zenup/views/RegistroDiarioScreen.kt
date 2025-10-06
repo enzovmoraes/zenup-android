@@ -11,6 +11,7 @@ import androidx.compose.material.icons.filled.ChevronLeft
 import androidx.compose.material.icons.filled.ChevronRight
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Chat
+import androidx.compose.material.icons.filled.Notifications // Importação necessária para o sino
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -24,13 +25,14 @@ import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.time.temporal.TemporalAdjusters
 
-// Importação necessária para o TopAppBar e outros componentes Material 3
+
 import androidx.compose.material3.ExperimentalMaterial3Api
+import com.example.zenup.ui.theme.roxo
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RegistroDiarioScreen() {
-    // Gerenciando o estado do mês e ano atuais
+
     var currentMonth by remember { mutableStateOf(LocalDate.now()) }
 
     Scaffold(
@@ -57,23 +59,48 @@ fun RegistroDiarioScreen() {
                 .padding(innerPadding)
                 .fillMaxSize()
                 .padding(16.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            // Título principal
-            Text(
-                text = "Olá, Steven",
-                fontSize = 20.sp,
-                fontWeight = FontWeight.Normal,
-                color = Color.Black
-            )
+            // **INÍCIO DA ESTRUTURA CORRIGIDA: ROW para Título e Notificação**
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth() // Permite que o Spacer empurre o botão para a direita
+                    .align(Alignment.Start),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                // Título "Olá, Steven"
+                Text(
+                    text = "Olá, Steven",
+                    fontSize = 20.sp,
+                    fontWeight = FontWeight.Normal,
+                    color = Color.Black,
+                )
+
+                Spacer(modifier = Modifier.weight(1f)) // Empurra o botão de notificação para a direita
+
+                // Botão de Notificação (Sino)
+                IconButton(
+                    onClick = { /* Ação do botão de notificação */ },
+                    modifier = Modifier
+                        .size(48.dp)
+                        .background(Color(0x33A69CFF), shape = CircleShape) // Fundo roxo suave e transparente
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.Notifications,
+                        contentDescription = "Notificações",
+                        tint = Color(0xFF5A4CDE) // Cor roxa para o ícone
+                    )
+                }
+            }
+            // **FIM DA ESTRUTURA CORRIGIDA**
+
             Text(
                 text = "Você já fez\nseu registro hoje?",
                 fontSize = 32.sp,
                 fontWeight = FontWeight.Bold,
-                color = Color.Black,
+                color = roxo,
                 modifier = Modifier
                     .padding(top = 8.dp)
-                    .align(Alignment.Start)
+                    .align(Alignment.Start) // Mantém o texto principal alinhado à esquerda
             )
 
             Spacer(modifier = Modifier.height(32.dp))
@@ -192,6 +219,7 @@ fun CalendarGrid(currentMonth: LocalDate) {
         columns = GridCells.Fixed(7),
         contentPadding = PaddingValues(4.dp)
     ) {
+        // Ajuste para começar o calendário no dia correto da semana
         val daysToSkip = if (startDayOfWeek == 7) 6 else startDayOfWeek - 1
         items(daysToSkip) {
             Spacer(modifier = Modifier.size(40.dp))
@@ -232,6 +260,8 @@ fun DayButton(day: Int, isToday: Boolean) {
                 contentColor = Color.Black
             )
         ) {
+            // Este Icone "Add" é apenas um placeholder no seu DayButton original,
+            // mas o texto do dia aparece por cima dele.
             Icon(
                 imageVector = Icons.Default.Add,
                 contentDescription = "Adicionar check-in",

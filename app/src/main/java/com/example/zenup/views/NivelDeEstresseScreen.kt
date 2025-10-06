@@ -18,6 +18,7 @@ import androidx.compose.ui.unit.dp
 import com.example.zenup.R
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.text.style.TextAlign
+import com.example.zenup.ui.theme.laranjatitulo
 
 
 @Composable
@@ -43,7 +44,7 @@ fun NivelDeEstresseScreen() {
                 text = "Nível de Estresse",
                 fontSize = 32.sp,
                 fontWeight = FontWeight.Bold,
-                color = Color.Black
+                color = laranjatitulo
             )
 
             Spacer(modifier = Modifier.height(32.dp))

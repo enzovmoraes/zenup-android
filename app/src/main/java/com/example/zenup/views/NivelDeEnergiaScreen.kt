@@ -17,6 +17,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.zenup.R
+import com.example.zenup.ui.theme.laranjatitulo
 
 @Composable
 fun NivelDeEnergiaScreen() {
@@ -41,7 +42,7 @@ fun NivelDeEnergiaScreen() {
                 text = "Nível de Energia",
                 fontSize = 32.sp,
                 fontWeight = FontWeight.Bold,
-                color = Color.Black
+                color = laranjatitulo
             )
 
             Spacer(modifier = Modifier.height(32.dp))

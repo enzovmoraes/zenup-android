@@ -18,11 +18,13 @@ import androidx.compose.ui.unit.dp
 import com.example.zenup.R
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.text.style.TextAlign
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.zenup.ui.theme.laranjatitulo
 
 
 @Composable
-fun NivelDeEstresseScreen() {
+fun Estresse(navController: NavController) {
     Box(modifier = Modifier.fillMaxSize()) {
         // Imagem de fundo
         Image(
@@ -158,5 +160,5 @@ fun StressButton(text: String, modifier: Modifier = Modifier) {
 @Preview(showBackground = true)
 @Composable
 fun PreviewNivelDeEstresseScreen() {
-    NivelDeEstresseScreen()
+    Estresse(navController = rememberNavController())
 }

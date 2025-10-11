@@ -27,11 +27,13 @@ import java.time.temporal.TemporalAdjusters
 
 
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.zenup.ui.theme.roxo
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun RegistroDiarioScreen(){
+fun HomeScreen(navController: NavController){
 
     var currentMonth by remember { mutableStateOf(LocalDate.now()) }
 
@@ -41,7 +43,7 @@ fun RegistroDiarioScreen(){
         },
         floatingActionButton = {
             FloatingActionButton(
-                onClick = { /* Ação do botão central */ },
+                onClick = {navController.navigate("Humor")},
                 shape = CircleShape,
                 containerColor = Color(0xFF5A4CDE)
             ) {
@@ -277,6 +279,6 @@ fun DayButton(day: Int, isToday: Boolean) {
 
 @Preview(showBackground = true)
 @Composable
-fun PreviewRegistroDiarioScreen() {
-    RegistroDiarioScreen()
+fun PreviewHomeScreen() {
+    HomeScreen(navController = rememberNavController())
 }

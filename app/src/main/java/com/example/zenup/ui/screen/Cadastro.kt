@@ -1,4 +1,4 @@
-package com.example.zenup.views
+package com.example.zenup.ui.screen
 
 import com.example.zenup.R
 
@@ -10,6 +10,9 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -22,21 +25,21 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.zenup.Usuario
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun Cadastro(
-    onLoginClick: () -> Unit,
-    onCadastroSuccess: (String, String) -> Unit
+   navController: NavController
 ){
 
     val context = LocalContext.current
 
-    var nome by remember { mutableStateOf("") }
-    var email by remember { mutableStateOf("") }
-    var senha by remember { mutableStateOf("") }
+    var nome by rememberSaveable { mutableStateOf("") }
+    var email by rememberSaveable { mutableStateOf("") }
+    var senha by rememberSaveable { mutableStateOf("") }
     var confirmarSenha by remember { mutableStateOf("") }
     var aceitarTermos by remember { mutableStateOf(false) }
 
@@ -155,7 +158,7 @@ fun Cadastro(
         Button(
             onClick = {
                 if (nome.isNotBlank() && email.isNotBlank() && senha.isNotBlank()) {
-                    onCadastroSuccess( email, senha)
+                    navController.navigate("Login")
                     Toast.makeText(context, "Cadastro realizado!", Toast.LENGTH_SHORT).show()
                 } else {
                     Toast.makeText(context, "Preencha todos os campos!", Toast.LENGTH_SHORT).show()
@@ -179,7 +182,7 @@ fun Cadastro(
             color = Color.Blue,
             textAlign = TextAlign.Center,
             modifier = Modifier.clickable {
-                Toast.makeText(context, "Ir para tela de login", Toast.LENGTH_SHORT).show()
+              navController.navigate("Login")
             }
         )
     }
@@ -188,8 +191,5 @@ fun Cadastro(
 @Preview(showBackground = true)
 @Composable
 fun TelaCadastro() {
-    Cadastro (
-        onLoginClick = {},
-        onCadastroSuccess ={_,_ ->}
-    )
+    Cadastro (navController = rememberNavController())
 }

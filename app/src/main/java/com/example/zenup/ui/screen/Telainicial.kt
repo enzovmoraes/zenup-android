@@ -1,4 +1,4 @@
-package com.example.zenup.views
+package com.example.zenup.ui.screen
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -19,13 +19,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.zenup.R
 
 @Composable
-fun TelaInicial(
-    onLoginClick: () -> Unit,
-    onCadastroClick: () -> Unit
-){
+fun TelaInicial(navController: NavController) {
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -59,7 +57,9 @@ fun TelaInicial(
             Spacer(modifier = Modifier.height(32.dp))
 
             Button(
-                onClick = onLoginClick,
+                onClick = {
+                    navController.navigate("Login")
+                },
                 colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF6F00)),
                 modifier = Modifier.fillMaxWidth()
             ) {
@@ -71,7 +71,7 @@ fun TelaInicial(
             Text(
                 text = "Não tem uma conta? Cadastre-se",
                 color = Color.White,
-                modifier = Modifier.clickable { onCadastroClick() }
+                modifier = Modifier.clickable { navController.navigate("Cadastro")}
             )
         }
     }
@@ -80,8 +80,5 @@ fun TelaInicial(
 @Preview(showBackground = true)
 @Composable
 fun TelaInicial() {
-    TelaInicial(
-        onLoginClick = {},
-        onCadastroClick = {}
-    )
+    TelaInicial(navController = rememberNavController())
 }

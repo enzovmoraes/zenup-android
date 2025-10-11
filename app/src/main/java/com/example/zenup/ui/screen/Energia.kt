@@ -10,28 +10,29 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.zenup.R
 import com.example.zenup.ui.theme.laranjatitulo
 
-
 @Composable
-fun HumoresDoDiaScreen() {
+fun Energia(navController: NavController) {
     Box(modifier = Modifier.fillMaxSize()) {
         // Imagem de fundo
         Image(
             painter = painterResource(id = R.drawable.backgroundscreen),
-            contentDescription = "Background",
+            contentDescription = "Imagem de fundo",
             modifier = Modifier.fillMaxSize(),
-            contentScale = ContentScale.FillBounds
+            contentScale = ContentScale.Crop
         )
 
-
+        // Conteúdo da tela (Columna)
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -40,7 +41,7 @@ fun HumoresDoDiaScreen() {
         ) {
             // Título e subtítulo
             Text(
-                text = "Humores do Dia",
+                text = "Nível de Energia",
                 fontSize = 32.sp,
                 fontWeight = FontWeight.Bold,
                 color = laranjatitulo
@@ -49,7 +50,7 @@ fun HumoresDoDiaScreen() {
             Spacer(modifier = Modifier.height(32.dp))
 
             Text(
-                text = "Seu dia, seu humor. Sem filtros. Aqui você pode ser totalmente você.",
+                text = "Sua vitalidade em movimento. Do seu jeito, no seu ritmo.",
                 fontSize = 16.sp,
                 color = Color.Gray,
                 modifier = Modifier.padding(top = 8.dp)
@@ -65,10 +66,15 @@ fun HumoresDoDiaScreen() {
                 shape = RoundedCornerShape(20.dp),
                 colors = CardDefaults.cardColors(containerColor = Color(0xFFF0F5F9))
             ) {
-                Column(modifier = Modifier.padding(24.dp)) {
+                Column(
+                    modifier = Modifier
+                        .padding(24.dp)
+                        .fillMaxWidth(),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
                     // Título do card
                     Text(
-                        text = "Como você está se sentindo agora?",
+                        text = "Qual seu nível\nde energia hoje?",
                         fontSize = 20.sp,
                         fontWeight = FontWeight.Bold,
                         color = Color.Black
@@ -76,14 +82,40 @@ fun HumoresDoDiaScreen() {
 
                     Spacer(modifier = Modifier.height(16.dp))
 
-                    // Grid de botões
-                    MoodGrid()
+                    // Grid de botões (4 primeiros)
+                    Column {
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.SpaceBetween
+                        ) {
+                            EnergyButton(text = "Esgotado", modifier = Modifier.weight(1f))
+                            Spacer(modifier = Modifier.width(16.dp))
+                            EnergyButton(text = "Baixa", modifier = Modifier.weight(1f))
+                        }
+                        Spacer(modifier = Modifier.height(16.dp))
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.SpaceBetween
+                        ) {
+                            EnergyButton(text = "Moderada", modifier = Modifier.weight(1f))
+                            Spacer(modifier = Modifier.width(16.dp))
+                            EnergyButton(text = "Alta", modifier = Modifier.weight(1f))
+                        }
+                    }
+
+                    Spacer(modifier = Modifier.height(16.dp))
+
+                    // Botão "Energizado" (centralizado)
+                    EnergyButton(
+                        text = "Energizado",
+                        modifier = Modifier.width(150.dp)
+                    )
 
                     Spacer(modifier = Modifier.height(16.dp))
 
                     // Botão "Próxima"
                     Button(
-                        onClick = { /* Ação do botão */ },
+                        onClick = { navController.navigate("Estresse") },
                         modifier = Modifier
                             .fillMaxWidth()
                             .height(56.dp),
@@ -105,44 +137,9 @@ fun HumoresDoDiaScreen() {
     }
 }
 
-// Criando o grid de botões
+// Botão de energia
 @Composable
-fun MoodGrid() {
-    val moods = listOf("Focado", "Grato", "Confiante", "Inspirado", "Frustrasdo", "Desanimado")
-
-    Column {
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
-            MoodButton(text = moods[0], modifier = Modifier.weight(1f))
-            Spacer(modifier = Modifier.width(16.dp))
-            MoodButton(text = moods[1], modifier = Modifier.weight(1f))
-        }
-        Spacer(modifier = Modifier.height(16.dp))
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
-            MoodButton(text = moods[2], modifier = Modifier.weight(1f))
-            Spacer(modifier = Modifier.width(16.dp))
-            MoodButton(text = moods[3], modifier = Modifier.weight(1f))
-        }
-        Spacer(modifier = Modifier.height(16.dp))
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
-            MoodButton(text = moods[4], modifier = Modifier.weight(1f))
-            Spacer(modifier = Modifier.width(16.dp))
-            MoodButton(text = moods[5], modifier = Modifier.weight(1f))
-        }
-    }
-}
-
-// Botão de humor
-@Composable
-fun MoodButton(text: String, modifier: Modifier = Modifier) {
+fun EnergyButton(text: String, modifier: Modifier = Modifier) {
     Button(
         onClick = { /* Ação do botão */ },
         modifier = modifier
@@ -159,6 +156,6 @@ fun MoodButton(text: String, modifier: Modifier = Modifier) {
 
 @Preview(showBackground = true)
 @Composable
-fun PreviewHumoresDoDiaScreen() {
-    HumoresDoDiaScreen()
+fun PreviewNivelDeEnergiaScreen() {
+    Energia(navController = rememberNavController())
 }

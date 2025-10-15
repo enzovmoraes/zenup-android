@@ -155,7 +155,7 @@ fun Login(
                 contentColor = Color.White
             )
         ) {
-            Text(text = "Cadastrar")
+            Text(text = "Log In")
         }
 
         Spacer(modifier = Modifier.height(16.dp))

@@ -1,3 +1,5 @@
+package com.example.zenup.ui.screen
+
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
@@ -33,13 +35,13 @@ import com.example.zenup.ui.theme.roxo
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeScreen(navController: NavController){
+fun Home(navController: NavController){
 
     var currentMonth by remember { mutableStateOf(LocalDate.now()) }
 
     Scaffold(
         bottomBar = {
-            BottomNavigationBar()
+            BottomNavigationBar(navController = navController)
         },
         floatingActionButton = {
             FloatingActionButton(
@@ -163,7 +165,7 @@ fun HomeScreen(navController: NavController){
 
 // Componente da barra de navegação inferior
 @Composable
-fun BottomNavigationBar() {
+fun BottomNavigationBar(navController: NavController) {
     BottomAppBar(
         containerColor = Color.White
     ) {
@@ -171,7 +173,7 @@ fun BottomNavigationBar() {
             icon = { Icon(Icons.Default.Home, contentDescription = "Home") },
             label = { Text("Home") },
             selected = true,
-            onClick = { /* Navegação para a tela Home */ }
+            onClick = { navController.navigate("home") }
         )
 
         Spacer(modifier = Modifier.weight(1f))
@@ -280,5 +282,5 @@ fun DayButton(day: Int, isToday: Boolean) {
 @Preview(showBackground = true)
 @Composable
 fun PreviewHomeScreen() {
-    HomeScreen(navController = rememberNavController())
+    Home(navController = rememberNavController())
 }

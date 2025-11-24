@@ -1,0 +1,27 @@
+// RegistroRepository.kt
+package com.example.zenup.data.repository
+
+import com.example.zenup.data.api.AuthApiService
+import com.example.zenup.data.api.RetrofitClient
+import com.example.zenup.data.model.RegistroDiarioRequest
+import com.example.zenup.data.model.RegistroDiarioResponse
+import java.io.IOException
+
+class RegistroRepository(
+    private val apiService: AuthApiService = RetrofitClient.authApiService
+) {
+    /**
+     * Envia o check-in diário (humor, energia, estresse) para a API.
+     */
+    suspend fun registrarCheckIn(request: RegistroDiarioRequest): RegistroDiarioResponse {
+        val response = apiService.registrarDiario(request)
+
+        if (response.isSuccessful) {
+            return response.body() ?: throw IOException("Resposta de registro diário vazia.")
+        } else {
+            val errorBody = response.errorBody()?.string() ?: "Erro desconhecido"
+            val errorMessage = "Erro HTTP ${response.code()}: $errorBody"
+            throw IOException(errorMessage)
+        }
+    }
+}

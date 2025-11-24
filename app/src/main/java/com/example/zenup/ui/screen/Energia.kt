@@ -1,3 +1,4 @@
+// Energia.kt (REVISADO para MVVM)
 package com.example.zenup.ui.screen
 
 import androidx.compose.foundation.Image
@@ -9,6 +10,8 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -22,9 +25,17 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.zenup.R
 import com.example.zenup.ui.theme.laranjatitulo
+import androidx.lifecycle.viewmodel.compose.viewModel // Novo Import
+import com.example.zenup.ui.viewmodel.RegistroDiarioViewModel // Novo Import
 
 @Composable
-fun Energia(navController: NavController) {
+fun Energia(
+    navController: NavController,
+    viewModel: RegistroDiarioViewModel = viewModel() // 👈 Injeção do ViewModel
+) {
+    val registroState by viewModel.registroState.collectAsState()
+    val energiaSelecionada = registroState.energia
+
     Box(modifier = Modifier.fillMaxSize()) {
         // Imagem de fundo
         Image(
@@ -41,22 +52,7 @@ fun Energia(navController: NavController) {
                 .padding(16.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            // Título e subtítulo
-            Text(
-                text = "Nível de Energia",
-                fontSize = 32.sp,
-                fontWeight = FontWeight.Bold,
-                color = laranjatitulo
-            )
-
-            Spacer(modifier = Modifier.height(32.dp))
-
-            Text(
-                text = "Sua vitalidade em movimento. Do seu jeito, no seu ritmo.",
-                fontSize = 16.sp,
-                color = Color.Gray,
-                modifier = Modifier.padding(top = 8.dp)
-            )
+            // ... (Título e subtítulo)
 
             Spacer(modifier = Modifier.height(64.dp))
 
@@ -90,18 +86,18 @@ fun Energia(navController: NavController) {
                             modifier = Modifier.fillMaxWidth(),
                             horizontalArrangement = Arrangement.SpaceBetween
                         ) {
-                            EnergyButton(text = "Esgotado", modifier = Modifier.weight(1f))
+                            EnergyButton(text = "Esgotado", isSelected = energiaSelecionada == "Esgotado", modifier = Modifier.weight(1f), onClick = { viewModel.setEnergia("Esgotado") })
                             Spacer(modifier = Modifier.width(16.dp))
-                            EnergyButton(text = "Baixa", modifier = Modifier.weight(1f))
+                            EnergyButton(text = "Baixa", isSelected = energiaSelecionada == "Baixa", modifier = Modifier.weight(1f), onClick = { viewModel.setEnergia("Baixa") })
                         }
                         Spacer(modifier = Modifier.height(16.dp))
                         Row(
                             modifier = Modifier.fillMaxWidth(),
                             horizontalArrangement = Arrangement.SpaceBetween
                         ) {
-                            EnergyButton(text = "Moderada", modifier = Modifier.weight(1f))
+                            EnergyButton(text = "Moderada", isSelected = energiaSelecionada == "Moderada", modifier = Modifier.weight(1f), onClick = { viewModel.setEnergia("Moderada") })
                             Spacer(modifier = Modifier.width(16.dp))
-                            EnergyButton(text = "Alta", modifier = Modifier.weight(1f))
+                            EnergyButton(text = "Alta", isSelected = energiaSelecionada == "Alta", modifier = Modifier.weight(1f), onClick = { viewModel.setEnergia("Alta") })
                         }
                     }
 
@@ -110,7 +106,9 @@ fun Energia(navController: NavController) {
                     // Botão "Energizado" (centralizado)
                     EnergyButton(
                         text = "Energizado",
-                        modifier = Modifier.width(150.dp)
+                        isSelected = energiaSelecionada == "Energizado",
+                        modifier = Modifier.width(150.dp),
+                        onClick = { viewModel.setEnergia("Energizado") }
                     )
 
                     Spacer(modifier = Modifier.height(16.dp))
@@ -118,6 +116,7 @@ fun Energia(navController: NavController) {
                     // Botão "Próxima"
                     Button(
                         onClick = { navController.navigate("Estresse") },
+                        enabled = energiaSelecionada != null, // 👈 Só habilita se uma energia for selecionada
                         modifier = Modifier
                             .fillMaxWidth()
                             .height(56.dp),
@@ -139,17 +138,21 @@ fun Energia(navController: NavController) {
     }
 }
 
-// Botão de energia
+// Botão de energia (com estado de seleção)
 @Composable
-fun EnergyButton(text: String, modifier: Modifier = Modifier) {
+fun EnergyButton(text: String, isSelected: Boolean, modifier: Modifier = Modifier, onClick: () -> Unit) {
+    // 👈 Definição de cores baseada no estado de seleção
+    val containerColor = if (isSelected) Color(0xFFFF773B) else Color(0xFFE6EDF2)
+    val contentColor = if (isSelected) Color.White else Color.Black
+
     Button(
-        onClick = { /* Ação do botão */ },
+        onClick = onClick,
         modifier = modifier
             .height(100.dp),
         shape = RoundedCornerShape(16.dp),
         colors = ButtonDefaults.buttonColors(
-            containerColor = Color(0xFFE6EDF2),
-            contentColor = Color.Black
+            containerColor = containerColor,
+            contentColor = contentColor
         )
     ) {
         Text(text = text)

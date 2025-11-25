@@ -5,12 +5,14 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.zenup.ui.screen.Cadastro
+import com.example.zenup.ui.screen.Chat
 import com.example.zenup.ui.screen.Login
 import com.example.zenup.ui.screen.TelaInicial
 import com.example.zenup.ui.screen.Home
 import com.example.zenup.ui.screen.Energia
 import com.example.zenup.ui.screen.Estresse
 import com.example.zenup.ui.screen.Humor
+import com.example.zenup.ui.screen.IniciarChat
 
 // Defina as rotas como constantes para evitar erros de digitação
 object Route {
@@ -22,6 +24,8 @@ object Route {
     const val ENERGIA = "energia"
     const val ESTRESSE = "estresse"
     const val HUMOR = "humor"
+
+    const val INICIARCHAT = "chat"
 }
 
 @Composable
@@ -54,6 +58,9 @@ fun SetupNavGraph(navController: NavHostController) {
         composable(route = Route.HUMOR) {
             Humor(navController = navController)
         }
-        // Adicione outras telas aqui...
+
+        composable (route = Route.INICIARCHAT){
+            IniciarChat(navController = navController)
+        }
     }
 }

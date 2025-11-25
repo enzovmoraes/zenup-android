@@ -181,7 +181,7 @@ fun BottomNavigationBar(navController: NavController) {
             icon = { Icon(Icons.Default.Chat, contentDescription = "Chat") },
             label = { Text("Chat") },
             selected = false,
-            onClick = { /* Navegação para a tela de Chat */ }
+            onClick = { navController.navigate("IniciarChat")  }
         )
     }
 }

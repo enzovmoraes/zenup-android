@@ -25,7 +25,9 @@ object Route {
     const val ESTRESSE = "estresse"
     const val HUMOR = "humor"
 
-    const val INICIARCHAT = "chat"
+    const val INICIARCHAT = "iniciarchat"
+
+    const val CHAT = "chat"
 }
 
 @Composable
@@ -61,6 +63,9 @@ fun SetupNavGraph(navController: NavHostController) {
 
         composable (route = Route.INICIARCHAT){
             IniciarChat(navController = navController)
+        }
+        composable (route = Route.CHAT){
+            Chat(navController = navController)
         }
     }
 }

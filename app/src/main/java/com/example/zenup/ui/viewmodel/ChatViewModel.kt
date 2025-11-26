@@ -1,21 +1,29 @@
 package com.example.zenup.ui.viewmodel
 
-import kotlinx.coroutines.delayimport kotlinx.coroutines.flow.MutableStateFlowimport kotlinx.coroutines.flow.asStateFlow
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import com.example.zenup.data.model.ChatMessage
 
 class ChatViewModel : ViewModel() {
 
     private val _messages = MutableStateFlow<List<ChatMessage>>(emptyList())
-    val messages = _messages.asStateFlow()
+    val messages: StateFlow<List<ChatMessage>> = _messages
 
     fun sendMessage(text: String) {
-        val msg = ChatMessage(text, true)
-        _messages.value += msg
+        val userMessage = ChatMessage(text = text, isUser = true)
+        _messages.value = _messages.value + userMessage
 
         viewModelScope.launch {
-            delay(600)
-            val bot = ChatMessage("Você disse: $text", false)
-            _messages.value += bot
+            delay(800)
+            val botMessage = ChatMessage(
+                text = "Resposta automática para: $text",
+                isUser = false
+            )
+            _messages.value = _messages.value + botMessage
         }
     }
 }

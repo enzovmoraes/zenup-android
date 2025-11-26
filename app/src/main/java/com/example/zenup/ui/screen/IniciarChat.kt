@@ -22,6 +22,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.example.zenup.navigation.Route
 
 @Composable
 fun IniciarChat(
@@ -101,7 +102,7 @@ fun IniciarChat(
             Spacer(modifier = Modifier.height(32.dp))
 
             Button(
-                onClick = {navController.navigate("Chat")},
+                onClick = {navController.navigate(Route.CHAT)},
                 modifier = Modifier.fillMaxWidth(),
                 colors = ButtonDefaults.buttonColors(
                     containerColor = Color(0xFF6C47FF)

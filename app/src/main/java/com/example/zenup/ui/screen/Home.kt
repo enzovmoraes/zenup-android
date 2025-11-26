@@ -31,6 +31,7 @@ import java.time.temporal.TemporalAdjusters
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.example.zenup.navigation.Route
 import com.example.zenup.ui.theme.roxo
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -181,7 +182,7 @@ fun BottomNavigationBar(navController: NavController) {
             icon = { Icon(Icons.Default.Chat, contentDescription = "Chat") },
             label = { Text("Chat") },
             selected = false,
-            onClick = { navController.navigate("IniciarChat")  }
+            onClick = { navController.navigate(Route.INICIARCHAT)  }
         )
     }
 }

@@ -1,7 +1,7 @@
-package org.example
+package com.example.zenup
 
 import kotlinx.coroutines.runBlocking
-import org.example.model.ChatRequest
+import com.example.zenup.data.model.ChatRequest
 import org.example.model.LoginRequest
 import org.example.network.ApiClient
 

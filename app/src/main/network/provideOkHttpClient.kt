@@ -1,4 +1,4 @@
-package org.example.network
+package com.example.zenup.network
 
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor

@@ -1,7 +1,6 @@
-package org.example.network
+package com.example.zenup.network
 
-import okhttp3.Interceptor
-import okhttp3.Response
+import okhttp3.*
 import okio.Buffer
 
 class AuthInterceptor(private val tokenProvider: () -> String?) : Interceptor {
@@ -18,16 +17,15 @@ class AuthInterceptor(private val tokenProvider: () -> String?) : Interceptor {
         }
 
         val request = builder.build()
-
         println("\n========== [REQUEST DEBUG] ==========")
-        println("URL: ${request.url}")
-        println("METHOD: ${request.method}")
-        println("HEADERS:\n${request.headers}")
+        println("URL: ${request.url()}")
+        println("METHOD: ${request.method()}")
+        println("HEADERS:\n${request.headers()}")
 
         // Log do corpo da requisição
-        if (request.body != null) {
+        if (request.body() != null) {
             val buffer = Buffer()
-            request.body!!.writeTo(buffer)
+            request.body()!!.writeTo(buffer)
             println("BODY: ${buffer.readUtf8()}")
         } else {
             println("BODY: <empty>")
@@ -42,10 +40,10 @@ class AuthInterceptor(private val tokenProvider: () -> String?) : Interceptor {
         }
 
         println("\n========== [RESPONSE DEBUG] ==========")
-        println("URL: ${response.request.url}")
-        println("STATUS CODE: ${response.code}")
-        println("MESSAGE: ${response.message}")
-        println("HEADERS:\n${response.headers}")
+        println("URL: ${response.request().url()}")
+        println("STATUS CODE: ${response.code()}")
+        println("MESSAGE: ${response.message()}")
+        println("HEADERS:\n${response.headers()}")
         println("======================================\n")
 
         return response

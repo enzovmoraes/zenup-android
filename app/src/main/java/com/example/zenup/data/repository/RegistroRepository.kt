@@ -3,8 +3,6 @@ package com.example.zenup.data.repository
 
 import com.example.zenup.data.api.AuthApiService
 import com.example.zenup.data.api.RetrofitClient
-import com.example.zenup.data.model.RegistroDiarioRequest
-import com.example.zenup.data.model.RegistroDiarioResponse
 import java.io.IOException
 
 class RegistroRepository(

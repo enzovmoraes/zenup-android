@@ -1,11 +1,6 @@
 // AuthApiService.kt (Completo)
 package com.example.zenup.data.api
 
-import com.example.zenup.data.model.CadastroRequest
-import com.example.zenup.data.model.CadastroResponse
-import com.example.zenup.data.model.LoginRequest
-import com.example.zenup.data.model.RegistroDiarioRequest
-import com.example.zenup.data.model.RegistroDiarioResponse
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.POST

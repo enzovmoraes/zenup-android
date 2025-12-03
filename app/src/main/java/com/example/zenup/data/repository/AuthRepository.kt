@@ -3,9 +3,6 @@ package com.example.zenup.data.repository
 
 import com.example.zenup.data.api.AuthApiService
 import com.example.zenup.data.api.RetrofitClient
-import com.example.zenup.data.model.CadastroRequest
-import com.example.zenup.data.model.CadastroResponse
-import com.example.zenup.data.model.LoginRequest // Importar LoginRequest
 import java.io.IOException
 
 class AuthRepository(

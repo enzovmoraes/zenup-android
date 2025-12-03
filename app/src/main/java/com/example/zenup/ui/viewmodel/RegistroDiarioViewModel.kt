@@ -3,8 +3,6 @@ package com.example.zenup.ui.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.zenup.data.model.RegistroDiarioRequest
-import com.example.zenup.data.model.CadastroRequest
 import com.example.zenup.data.repository.AuthRepository
 import com.example.zenup.data.repository.RegistroRepository
 import kotlinx.coroutines.flow.MutableStateFlow

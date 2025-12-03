@@ -1,4 +1,3 @@
-// ConfirmacaoRegistro.kt
 package com.example.zenup.ui.screen
 
 import androidx.compose.foundation.Image

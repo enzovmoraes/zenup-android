@@ -2,7 +2,10 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    kotlin("jvm") version "2.2.20"
 }
+group = "org.example"
+version = "1.0-SNAPSHOT"
 
 android {
     namespace = "com.example.zenup"
@@ -38,6 +41,11 @@ android {
     buildFeatures {
         compose = true
     }
+}
+
+
+repositories {
+    mavenCentral()
 }
 
 dependencies {
@@ -84,4 +92,26 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2")
     implementation("androidx.navigation:navigation-compose:2.7.5")
 
+    // Testes
+    testImplementation(kotlin("test"))
+
+    // Retrofit (client HTTP)
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+
+    // Converter JSON (Gson)
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+
+    // OkHttp client + logging
+    implementation("com.squareup.okhttp3:okhttp:4.10.0")
+    implementation("com.squareup.okhttp3:logging-interceptor:4.10.0")
+
+    // Coroutines (executar chamadas assíncronas com suspend)
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
+
+    implementation("com.squareup.okhttp3:logging-interceptor:4.10.0")
+
+}
+
+kotlin {
+    jvmToolchain(17)
 }

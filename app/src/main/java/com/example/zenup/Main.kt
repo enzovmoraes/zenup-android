@@ -1,45 +1,35 @@
 package com.example.zenup
 
 import kotlinx.coroutines.runBlocking
-import com.example.zenup.data.model.ChatRequest
+import org.example.model.ChatRequest
 import org.example.model.LoginRequest
-import org.example.network.ApiClient
+import com.example.zenup.data.repository.AuthRepository
 
 fun main() = runBlocking {
 
-    // 1. Login
-    val loginResp = ApiClient.api.login(LoginRequest(chave = "gss_zC9ZzqP4NKPHLZ8FoWayWGdyb3FYJvVByKzP8kcRg0UNp22xPni9apl"))
+    val authRepository = AuthRepository()
 
-    if (!loginResp.isSuccessful) {
-        println("Login falhou: ${loginResp.code()} ${loginResp.errorBody()?.string()}")
-        return@runBlocking
-    }
+    // 1. Login usando o repositório
+    try {
+        val loginResponse = authRepository.login(
+            LoginRequest(
+                email = "usuario@exemplo.com",
+                senha = "senha123"
+            )
+        )
+        println("Token recebido: ${loginResponse.token}")
 
-    val token = loginResp.body()?.token ?: run {
-        println("Login falhou: token nulo")
-        return@runBlocking
-    }
+        // 2. Chat usando o repositório
+        val chatResponse = authRepository.chat(
+            ChatRequest(id = 123, texto = "estou me sentindo muito triste")
+        )
+        println("Resposta do chat: ${chatResponse.mensagem}")
 
-    ApiClient.authToken = token
-    println("Token recebido: $token")
+        // 3. Resumo usando o repositório
+        val resumoResponse = authRepository.resumo(idUsuario = 123L)
+        println("Resumo: ${resumoResponse.resumo}")
 
-    // 2. Chat (sem passar Authorization – automaticamente via interceptor)
-    val chatResp = ApiClient.api.chat(
-        ChatRequest(id = 123, texto = "estou me sentindo muito triste")
-    )
-
-    if (chatResp.isSuccessful) {
-        println("Resposta do chat: ${chatResp.body()?.mensagem}")
-    } else {
-        println("Erro chat: ${chatResp.code()} ${chatResp.errorBody()?.string()}")
-    }
-
-    // 3. Resumo
-    val resumoResp = ApiClient.api.resumo(id = 123)
-
-    if (resumoResp.isSuccessful) {
-        println("Resumo: ${resumoResp.body()?.resumo}")
-    } else {
-        println("Erro resumo: ${resumoResp.code()} ${resumoResp.errorBody()?.string()}")
+    } catch (e: Exception) {
+        println("Erro: ${e.message}")
     }
 }

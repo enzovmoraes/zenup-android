@@ -160,16 +160,6 @@ fun Login(
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        // Link para cadastro
-        Text(
-            text = "Não tem conta? Cadastre-se agora!",
-            color = Color.Blue,
-            textAlign = TextAlign.Center,
-            modifier = Modifier.clickable {
-                // Aqui você chama a ação de navegação
-                navController.navigate("Cadastro")
-            }
-        )
     }
 }
 

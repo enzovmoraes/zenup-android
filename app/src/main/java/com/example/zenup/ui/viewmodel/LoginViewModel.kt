@@ -4,6 +4,8 @@ package com.example.zenup.ui.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.zenup.data.repository.AuthRepository
+import org.example.model.LoginRequest
+import org.example.model.LoginResponse
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -12,7 +14,7 @@ import kotlinx.coroutines.launch
 sealed class LoginUiState {
     object Idle : LoginUiState()
     object Loading : LoginUiState()
-    data class Success(val response: CadastroResponse) : LoginUiState()
+    data class Success(val response: LoginResponse) : LoginUiState()
     data class Error(val message: String) : LoginUiState()
 }
 

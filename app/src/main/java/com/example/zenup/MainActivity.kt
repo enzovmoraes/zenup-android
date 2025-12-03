@@ -14,7 +14,6 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.zenup.navigation.SetupNavGraph
-import com.example.zenup.ui.screen.Cadastro
 import com.example.zenup.ui.screen.Login
 import com.example.zenup.ui.screen.TelaInicial
 

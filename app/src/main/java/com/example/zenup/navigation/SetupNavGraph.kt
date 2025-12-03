@@ -4,7 +4,6 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.example.zenup.ui.screen.Cadastro
 import com.example.zenup.ui.screen.Chat
 import com.example.zenup.ui.screen.Login
 import com.example.zenup.ui.screen.TelaInicial
@@ -41,9 +40,6 @@ fun SetupNavGraph(navController: NavHostController) {
         }
         composable(route = Route.LOGIN) {
             Login(navController = navController)
-        }
-        composable(route = Route.CADASTRO) {
-            Cadastro(navController = navController)
         }
         composable(route = Route.HOME) {
             Home(navController = navController)

@@ -22,12 +22,14 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.zenup.ui.viewmodel.ChatViewModel
+import com.example.zenup.ui.viewmodel.ChatMessage
 
 
 @Composable
 fun Chat(
     navController: NavController,
-    viewModel: ChatViewModel = viewModel()) {
+    viewModel: ChatViewModel = viewModel()
+) {
 
     val messages by viewModel.messages.collectAsState()
     var input by remember { mutableStateOf("") }
@@ -46,11 +48,13 @@ fun Chat(
                 )
         ) {
             Row(
-                modifier = Modifier.fillMaxWidth().padding(16.dp),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp),
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                IconButton(onClick = {navController.navigate("Home")}) {
+                IconButton(onClick = { navController.navigate("Home") }) {
                     Icon(Icons.Default.ArrowBack, contentDescription = null, tint = Color.White)
                 }
                 Text("Sair", color = Color.White)
@@ -73,7 +77,9 @@ fun Chat(
             )
 
             LazyColumn(
-                modifier = Modifier.weight(1f).padding(horizontal = 16.dp),
+                modifier = Modifier
+                    .weight(1f)
+                    .padding(horizontal = 16.dp),
                 reverseLayout = true
             ) {
                 items(messages.reversed()) { msg ->
@@ -82,7 +88,9 @@ fun Chat(
             }
 
             Row(
-                modifier = Modifier.fillMaxWidth().padding(16.dp),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(":)")

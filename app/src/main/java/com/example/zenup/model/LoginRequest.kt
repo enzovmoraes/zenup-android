@@ -1,3 +1,9 @@
+
+// LoginModels.kt
 package org.example.model
 
-data class LoginRequest(val chave: String)
+// Request para Login
+data class LoginRequest(
+    val email: String,
+    val senha: String
+)

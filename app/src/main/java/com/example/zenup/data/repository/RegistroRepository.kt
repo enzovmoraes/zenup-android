@@ -1,12 +1,15 @@
-// RegistroRepository.kt
 package com.example.zenup.data.repository
 
-import com.example.zenup.data.api.AuthApiService
-import com.example.zenup.data.api.RetrofitClient
+import com.example.zenup.data.network.ApiClient
+import com.example.zenup.data.api.ZenUpApi
+import org.example.model.*
 import java.io.IOException
 
+/**
+ * Repositório responsável pelos registros diários (check-in de humor, energia, estresse)
+ */
 class RegistroRepository(
-    private val apiService: AuthApiService = RetrofitClient.authApiService
+    private val apiService: ZenUpApi = ApiClient.api
 ) {
     /**
      * Envia o check-in diário (humor, energia, estresse) para a API.

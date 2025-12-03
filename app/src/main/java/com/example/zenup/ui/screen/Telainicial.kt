@@ -68,11 +68,6 @@ fun TelaInicial(navController: NavController) {
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            Text(
-                text = "Não tem uma conta? Cadastre-se",
-                color = Color.White,
-                modifier = Modifier.clickable { navController.navigate("Cadastro")}
-            )
         }
     }
 }

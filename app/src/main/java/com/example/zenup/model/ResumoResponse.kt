@@ -1,3 +1,5 @@
 package org.example.model
 
-data class ResumoResponse(val resumo: String)
+data class ResumoResponse(
+    val resumo: String
+)

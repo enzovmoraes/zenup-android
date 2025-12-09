@@ -1,4 +1,4 @@
-// Estresse.kt (Versão CORRIGIDA)
+// Estresse.kt (VERSÃO ATUALIZADA SEM CARD CINZA)
 package com.example.zenup.ui.screen
 
 import android.widget.Toast
@@ -44,20 +44,27 @@ fun Estresse(
     val registroState by viewModel.registroState.collectAsState()
     val estresseSelecionado = registroState.estresse
 
+    // 🔥 LaunchedEffect ATUALIZADO — sem mensagem de sucesso
     LaunchedEffect(apiState) {
         when (apiState) {
             is RegistroApiState.Success -> {
-                Toast.makeText(context, (apiState as RegistroApiState.Success).message, Toast.LENGTH_LONG).show()
-                navController.navigate("Home") {
+                // Sem Toast, sem UI — apenas navega
+                navController.navigate("ConfirmacaoRegistro") {
                     popUpTo("Humor") { inclusive = true }
                 }
                 viewModel.resetApiState()
             }
+
             is RegistroApiState.Error -> {
-                Toast.makeText(context, (apiState as RegistroApiState.Error).message, Toast.LENGTH_LONG).show()
+                Toast.makeText(
+                    context,
+                    (apiState as RegistroApiState.Error).message,
+                    Toast.LENGTH_LONG
+                ).show()
                 viewModel.resetApiState()
             }
-            else -> { }
+
+            else -> {}
         }
     }
 
@@ -65,7 +72,7 @@ fun Estresse(
     val isButtonEnabled = !isLoading && estresseSelecionado != null
 
     Box(modifier = Modifier.fillMaxSize()) {
-        // Imagem de fundo
+
         Image(
             painter = painterResource(id = R.drawable.backgroundscreen),
             contentDescription = "Imagem de fundo",
@@ -73,7 +80,6 @@ fun Estresse(
             contentScale = ContentScale.Crop
         )
 
-        // Conteúdo da tela (Columna)
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -82,7 +88,6 @@ fun Estresse(
         ) {
             Spacer(modifier = Modifier.height(64.dp))
 
-            // Card principal
             Card(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -96,7 +101,6 @@ fun Estresse(
                         .fillMaxWidth(),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    // Título do card
                     Text(
                         text = "Como está seu\nnível de estresse?",
                         fontSize = 20.sp,
@@ -107,7 +111,6 @@ fun Estresse(
 
                     Spacer(modifier = Modifier.height(16.dp))
 
-                    // Grid de botões (4 primeiros)
                     Column {
                         Row(
                             modifier = Modifier.fillMaxWidth(),
@@ -131,7 +134,9 @@ fun Estresse(
                                 onClick = { viewModel.setEstresse(2) }
                             )
                         }
+
                         Spacer(modifier = Modifier.height(16.dp))
+
                         Row(
                             modifier = Modifier.fillMaxWidth(),
                             horizontalArrangement = Arrangement.SpaceBetween
@@ -158,7 +163,6 @@ fun Estresse(
 
                     Spacer(modifier = Modifier.height(16.dp))
 
-                    // Botão "Muito estressado" (centralizado)
                     StressButton(
                         text = "Muito\nestressado",
                         value = 5,
@@ -170,11 +174,8 @@ fun Estresse(
 
                     Spacer(modifier = Modifier.height(16.dp))
 
-                    // Botão "Próxima" -> FINALIZAR REGISTRO
                     Button(
-                        onClick = {
-                            viewModel.enviarRegistroDiario()
-                        },
+                        onClick = { viewModel.enviarRegistroDiario() },
                         enabled = isButtonEnabled,
                         modifier = Modifier
                             .fillMaxWidth()
@@ -205,7 +206,6 @@ fun Estresse(
     }
 }
 
-// Botão de estresse (com estado de seleção)
 @Composable
 fun StressButton(
     text: String,
@@ -228,10 +228,7 @@ fun StressButton(
             contentColor = contentColor
         )
     ) {
-        Text(
-            text = text,
-            textAlign = TextAlign.Center
-        )
+        Text(text = text, textAlign = TextAlign.Center)
     }
 }
 

@@ -1,5 +1,6 @@
 package com.example.zenup.ui.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.zenup.data.repository.RegistroRepository
@@ -8,19 +9,17 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
-// 1. Estado para Gerenciar os Inputs do Usuário nas 3 Telas
 data class RegistroDiarioState(
-    val humor: Int? = null,        // Valores de 1-6
-    val energia: Int? = null,      // Valores de 1-5
-    val estresse: Int? = null,     // Valores de 1-5
-    val idUsuario: Long? = null    // ID do usuário logado
+    val humor: Int? = null,
+    val energia: Int? = null,
+    val estresse: Int? = null,
+    val idUsuario: Long? = 123L
 )
 
-// 2. Estado para Gerenciar a Comunicação Final com a API
 sealed class RegistroApiState {
     object Idle : RegistroApiState()
     object Loading : RegistroApiState()
-    data class Success(val message: String) : RegistroApiState()
+    object Success : RegistroApiState()   // <<< Sem texto
     data class Error(val message: String) : RegistroApiState()
 }
 
@@ -28,38 +27,41 @@ class RegistroDiarioViewModel(
     private val repository: RegistroRepository = RegistroRepository()
 ) : ViewModel() {
 
-    // Mantém o estado dos inputs do usuário nas 3 telas
     private val _registroState = MutableStateFlow(RegistroDiarioState())
     val registroState: StateFlow<RegistroDiarioState> = _registroState
 
-    // Mantém o estado da chamada final à API
     private val _apiState = MutableStateFlow<RegistroApiState>(RegistroApiState.Idle)
     val apiState: StateFlow<RegistroApiState> = _apiState
 
-    // Funções para salvar o input de cada tela
     fun setIdUsuario(id: Long) {
         _registroState.value = _registroState.value.copy(idUsuario = id)
+        Log.d("RegistroViewModel", "ID do usuário definido: $id")
     }
 
     fun setHumor(humor: Int) {
         _registroState.value = _registroState.value.copy(humor = humor)
+        Log.d("RegistroViewModel", "Humor definido: $humor")
     }
 
     fun setEnergia(energia: Int) {
         _registroState.value = _registroState.value.copy(energia = energia)
+        Log.d("RegistroViewModel", "Energia definida: $energia")
     }
 
     fun setEstresse(estresse: Int) {
         _registroState.value = _registroState.value.copy(estresse = estresse)
+        Log.d("RegistroViewModel", "Estresse definido: $estresse")
     }
 
-    // Função para enviar o registro completo ao final
     fun enviarRegistroDiario() {
         val state = _registroState.value
 
-        // Validação
-        if (state.idUsuario == null || state.humor == null || state.energia == null || state.estresse == null) {
-            _apiState.value = RegistroApiState.Error("Dados incompletos para o registro.")
+        if (state.idUsuario == null ||
+            state.humor == null ||
+            state.energia == null ||
+            state.estresse == null
+        ) {
+            _apiState.value = RegistroApiState.Error("Dados incompletos.")
             return
         }
 
@@ -73,12 +75,11 @@ class RegistroDiarioViewModel(
         viewModelScope.launch {
             _apiState.value = RegistroApiState.Loading
             try {
-                val response = repository.registrarCheckIn(request)
-                _apiState.value = RegistroApiState.Success(response.mensagem)
-                // Limpa os dados mas mantém o ID do usuário
+                repository.registrarCheckIn(request)
+                _apiState.value = RegistroApiState.Success   // <<< sem mensagem
                 _registroState.value = RegistroDiarioState(idUsuario = state.idUsuario)
             } catch (e: Exception) {
-                _apiState.value = RegistroApiState.Error("Falha ao registrar: ${e.message ?: "Erro desconhecido"}")
+                _apiState.value = RegistroApiState.Error("Falha ao registrar: ${e.message}")
             }
         }
     }

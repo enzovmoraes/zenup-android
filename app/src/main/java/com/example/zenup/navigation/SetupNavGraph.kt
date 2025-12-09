@@ -1,6 +1,7 @@
 package com.example.zenup.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -12,56 +13,66 @@ import com.example.zenup.ui.screen.Energia
 import com.example.zenup.ui.screen.Estresse
 import com.example.zenup.ui.screen.Humor
 import com.example.zenup.ui.screen.IniciarChat
+import com.example.zenup.ui.screen.ConfirmacaoRegistro
+import com.example.zenup.ui.viewmodel.RegistroDiarioViewModel
 
-// Defina as rotas como constantes para evitar erros de digitação
 object Route {
     const val TELA_INICIAL = "tela_inicial"
     const val LOGIN = "login"
     const val CADASTRO = "cadastro"
     const val HOME = "home"
 
+    const val HUMOR = "Humor"
     const val ENERGIA = "energia"
     const val ESTRESSE = "estresse"
-    const val HUMOR = "humor"
+
+    const val CONFIRMAR = "ConfirmacaoRegistro"
 
     const val INICIARCHAT = "iniciarchat"
-
     const val CHAT = "chat"
 }
 
 @Composable
 fun SetupNavGraph(navController: NavHostController) {
+
+    val registroViewModel: RegistroDiarioViewModel = viewModel()
+
     NavHost(
         navController = navController,
         startDestination = Route.TELA_INICIAL
     ) {
-        composable(route = Route.TELA_INICIAL) {
-            TelaInicial(navController = navController)
+        composable(Route.TELA_INICIAL) {
+            TelaInicial(navController)
         }
-        composable(route = Route.LOGIN) {
-            Login(navController = navController)
+        composable(Route.LOGIN) {
+            Login(navController)
         }
-        composable(route = Route.HOME) {
-            Home(navController = navController)
-        }
-
-        composable(route = Route.ENERGIA) {
-            Energia(navController = navController)
+        composable(Route.HOME) {
+            Home(navController)
         }
 
-        composable(route = Route.ESTRESSE) {
-            Estresse(navController = navController)
+        // Telas do fluxo de registro
+        composable(Route.HUMOR) {
+            Humor(navController, registroViewModel)
+        }
+        composable(Route.ENERGIA) {
+            Energia(navController, registroViewModel)
+        }
+        composable(Route.ESTRESSE) {
+            Estresse(navController, registroViewModel)
         }
 
-        composable(route = Route.HUMOR) {
-            Humor(navController = navController)
+        // ⭐ Tela da confirmação do registro
+        composable(Route.CONFIRMAR) {
+            ConfirmacaoRegistro(navController)
         }
 
-        composable (route = Route.INICIARCHAT){
-            IniciarChat(navController = navController)
+        // Chat
+        composable(Route.INICIARCHAT) {
+            IniciarChat(navController)
         }
-        composable (route = Route.CHAT){
-            Chat(navController = navController)
+        composable(Route.CHAT) {
+            Chat(navController)
         }
     }
 }

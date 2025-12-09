@@ -71,9 +71,9 @@ fun Home(navController: NavController){
                     .align(Alignment.Start),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                // Título "Olá, Steven"
+
                 Text(
-                    text = "Olá, Steven",
+                    text = "Olá, Alice",
                     fontSize = 20.sp,
                     fontWeight = FontWeight.Normal,
                     color = Color.Black,

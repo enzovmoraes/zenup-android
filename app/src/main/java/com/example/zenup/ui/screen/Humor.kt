@@ -1,4 +1,4 @@
-// Humor.kt (Versão CORRIGIDA)
+// Humor.kt (Versão CORRIGIDA - Compartilha ViewModel)
 package com.example.zenup.ui.screen
 
 import androidx.compose.foundation.Image
@@ -10,6 +10,7 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -34,6 +35,13 @@ fun Humor(
 ) {
     val registroState by viewModel.registroState.collectAsState()
     val humorSelecionado = registroState.humor
+
+    // Define ID do usuário mockado quando a tela é aberta
+    LaunchedEffect(Unit) {
+        if (registroState.idUsuario == null) {
+            viewModel.setIdUsuario(123L) // ID mockado
+        }
+    }
 
     Box(modifier = Modifier.fillMaxSize()) {
         // Imagem de fundo
